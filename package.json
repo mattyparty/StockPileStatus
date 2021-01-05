@@ -41,10 +41,10 @@
   "semistandard": {
     "ignore": [
       "/public/js/tabulator.js",
-      "/public/js/tabulator.min.js",
       "/public/js/login.js",
       "/public/js/signup.js",
-      "/public/js/members.js"
+      "/public/js/admin.js",
+      "/public/js/account.js"
     ]
   },
   "repository": {
