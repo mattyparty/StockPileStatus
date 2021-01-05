@@ -18,14 +18,16 @@ router
 // how we configured our Sequelize User Model. If the user is created successfully, proceed to log the user in,
 // otherwise send back an error
 router.route('/signup', isAuthenticated).post((req, res) => {
-  console.log('this is the sign up route', req.body);
+  console.log('this is the sign up object', req.body.email);
   db.user
     .create(req.body)
     .then(() => {
-      res.redirect('/members');
+      res.status(200).json({
+        msg: 'You are successfully Registered!'
+      });
     })
     .catch((err) => {
-      res.status(401).json(err);
+      res.status(401).json(err.message);
     });
 });
 
