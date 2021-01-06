@@ -7,7 +7,7 @@ const router = require('express').Router();
 
 // Route to render home page
 router.get('/', (req, res) => {
-  res.render('index');
+  res.render('index', { home: true });
 });
 
 // Route to render login?

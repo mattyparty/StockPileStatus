@@ -1,4 +1,4 @@
-{{> header }}
+{{> navbar }}
 
 <section class="section">
     <div class="container box">
@@ -7,6 +7,74 @@
         </div>
     </div>
 </section>
+
+<div class="container box">
+
+    <div class="columns is-centered">
+        {{!-- <div class="column"> --}}
+            <h1 class="title is-5">Create A Purchase Order</h1>
+            {{!--
+        </div> --}}
+    </div>
+
+    <form id="poForm">
+
+        <div class="field is-horizontal">
+
+            <div class="field-label is-normal">
+                <label class="label">PO #:</label>
+            </div>
+            <div class="field-body">
+                <div class="field">
+                    <div class="control">
+                        <input type="text" class="input" id="poNum" placeholder="Ex. 12345">
+                    </div>
+                </div>
+            </div>
+
+            <div class="field-label is-normal">
+                <label class="label">Item:</label>
+            </div>
+            <div class="field-body">
+                <div class="field">
+                    <div class="control">
+                        <input type="text" class="input" id="item" placeholder="Ex. Bolts">
+                    </div>
+                </div>
+            </div>
+
+            <div class="field-label is-normal">
+                <label class="label">Supplier:</label>
+            </div>
+            <div class="field-body">
+                <div class="field">
+                    <div class="control">
+                        <input type="text" class="input" id="supplier" placeholder="Ex. ACME Supplier">
+                    </div>
+                </div>
+            </div>
+
+            <div class="field-label is-normal">
+                <label class="label">Due Date:</label>
+            </div>
+            <div class="field-body">
+                <div class="field">
+                    <div class="control">
+                        <input type="text" class="input" id="dueDate" placeholder="Ex. 2021-01-01">
+                    </div>
+                </div>
+            </div>
+
+            <div class="field">
+                <div class="control">
+                    <input class="button is-primary orderBtn" type="submit" id="orderBtn"></input>
+                </div>
+            </div>
+
+        </div>
+
+    </form>
+</div>
 
 <div class="container box">
     <div id='admin-table'></div>

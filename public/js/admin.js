@@ -49,12 +49,38 @@ const makeAdminTable = (data) => {
         title: 'Supplier ID',
         field: 'supplierId',
         hozAlign: 'center',
-        editor: 'textarea',
-        editorParams: {
-          elementAttributes: {
-            maxlength: '100'
-          }
-        }
+        editor: 'select',
+        editorParams:
+          //option group
+
+          //options in option group
+
+          [
+            {
+              label: 'Stark Industries',
+              value: '1'
+            },
+            {
+              label: 'Anvil Corp',
+              value: '2'
+            },
+            {
+              label: 'Wayne Enterprises',
+              value: '3'
+            },
+            {
+              label: 'Lex Corp',
+              value: '4'
+            },
+            {
+              label: 'Oscorp',
+              value: '5'
+            },
+            {
+              label: 'Pym Corp',
+              value: '5'
+            }
+          ]
       },
 
       {

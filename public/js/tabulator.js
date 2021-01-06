@@ -1,6 +1,6 @@
 const getData = () => {
   $.get('/api/account').then((response) => {
-    // console.log(response.results);
+    console.log(response.results);
     makeTable(response.results);
     //console.log(data);
   });
@@ -94,9 +94,14 @@ var dateEditor = function(cell, onRendered, success, cancel, editorParams) {
 };
 
 const makeTable = (data) => {
+  if (!data.length) {
+    return;
+  }
+
   new Tabulator('#po-table', {
     // Define Table Columns
     // Pagination: 'local',
+
     data: data,
     layout: 'fitColumns',
     pagination: 'local',
@@ -114,7 +119,7 @@ const makeTable = (data) => {
       },
       {
         title: 'Supplier',
-        field: 'supplier.supplier_name',
+        field: 'supplierName',
         hozAlign: 'center'
       },
       {

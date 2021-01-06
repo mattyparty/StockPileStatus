@@ -17,10 +17,8 @@ module.exports = (sequelize, DataTypes) => {
   // added association - mlp
 
   Supplier.associate = (models) => {
-    Supplier.hasMany(models.order);
-    Supplier.hasMany(models.supplier_map_login, {
-      foreignKey: 'supplier_id'
-    });
+    // Supplier.hasMany(models.order);
+    Supplier.hasMany(models.supplier_map_login);
   };
   return Supplier;
 };
