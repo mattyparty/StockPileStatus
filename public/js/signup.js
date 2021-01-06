@@ -1,42 +1,31 @@
-const $ = window.$;
-
 $(document).ready(() => {
   // Getting references to our form and input
   const signUpForm = $('form#signup');
-  console.log(signUpForm);
   const emailInput = $('input#email-input');
   const passwordInput = $('input#password-input');
 
   // When the signup button is clicked, we validate the email and password are not blank
   signUpForm.on('submit', event => {
     event.preventDefault();
-    const userData = {
-      email: emailInput.val().trim(),
-      password: passwordInput.val().trim()
-    };
-    console.log(userData);
-
-    if (!userData.email || !userData.password) {
-      return;
-    }
-    // If we have an email and password, run the signUpUser function
-    signUpUser(userData.email, userData.password);
+    let form = event.target;
+    let email = form['email'].value;
+    let password = form['password'].value;
+    signUpUser(email, password);
     emailInput.val('');
     passwordInput.val('');
   });
 
-  // Does a post to the signup route. If successful, we are redirected to the account page
+  // Does a post to the signup route. If successful, we are redirected to the members page
   // Otherwise we log any errors
   function signUpUser(email, password) {
-    $.post('/api/signup', {
-      email: email,
-      password: password
-    })
-      .then(() => {
-        window.location.replace('/account');
-        // If there's an error, handle it by throwing up a bootstrap alert
+    console.log(email, password)
+    $.post('/api/signup', { email, password })
+      .then((res) => {
+        alert('Congratulations!!! You Signed Up Successfully. Please use the Credential for Login.');
       })
-      .catch(handleLoginErr);
+      .catch(err => {
+        alert('Invaild or Existing Email, Please try with different Email.');
+      });
   }
 
   function handleLoginErr(err) {

@@ -5,7 +5,7 @@ const passport = require('../../config/passport');
 const isAuthenticated = require('../../config/middleware/isAuthenticated');
 // const supplier = require('../../models/supplier');
 // Using the passport.authenticate middleware with our local strategy.
-// If the user has valid login credentials, send them to the account page.
+// If the user has valid login credentials, send them to the members page.
 // Otherwise the user will be sent an error
 router
   .route('/login', isAuthenticated)
@@ -18,14 +18,16 @@ router
 // how we configured our Sequelize User Model. If the user is created successfully, proceed to log the user in,
 // otherwise send back an error
 router.route('/signup', isAuthenticated).post((req, res) => {
-  //  console.log('this is the sign up route', req.body);
+  // console.log('this is the sign up object', req.body.email);
   db.user
     .create(req.body)
     .then(() => {
-      res.redirect('/account');
+      res.status(200).json({
+        msg: 'You are successfully Registered!'
+      });
     })
     .catch((err) => {
-      res.status(401).json(err);
+      res.status(401).json(err.message);
     });
 });
 
@@ -42,7 +44,7 @@ router.route('/user_data', isAuthenticated).get((req, res) => {
 });
 // matt added this API Route
 
-router.route('/account', isAuthenticated).get((req, res) => {
+router.route('/members', isAuthenticated).get((req, res) => {
   if (!req.user) {
     // The user is not logged in, send back an empty object
     return res.json({});
@@ -66,7 +68,7 @@ router.route('/account', isAuthenticated).get((req, res) => {
     });
 });
 // route for updating a record
-router.route('/account/:id', isAuthenticated).put((req, res) => {
+router.route('/members/:id', isAuthenticated).put((req, res) => {
   db.order
     .update(req.body, { where: { id: req.params.id } })
     .then((updated) => {
@@ -76,7 +78,6 @@ router.route('/account/:id', isAuthenticated).put((req, res) => {
 // route for adding a record
 router.route('/orders', isAuthenticated).post((req, res) => {
   console.log(req.body);
-  // Right now this function ONLY WORKS if supplier_map_login has the user listed
   db.order
     .create({
       item: req.body.item,
@@ -87,36 +88,8 @@ router.route('/orders', isAuthenticated).post((req, res) => {
       supplier_id: req.body.supplierId,
       supplier_map_login_id: req.body.supplierMapId
     })
-
     .then((updated) => {
       res.json(updated);
-    });
-});
-
-// route for admin access
-
-router.route('/admin', isAuthenticated).get((req, res) => {
-  if (!req.user) {
-    // The user is not logged in, send back an empty object
-    return res.json({});
-  }
-  db.supplier_map_login
-    .findAll({})
-    .then((results) => {
-      res.json({ results });
-      console.log({ results });
-    })
-    .catch((err) => {
-      console.log(err);
     });
 });
 module.exports = router;
-
-router.route('/admin/:id', isAuthenticated).put((req, res) => {
-  console.log(req.body);
-  db.supplier_map_login
-    .update(req.body, { where: { id: req.params.id } })
-    .then((updated) => {
-      res.json(updated);
-    });
-});
