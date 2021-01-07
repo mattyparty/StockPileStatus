@@ -49,6 +49,7 @@ router.route('/account', isAuthenticated).get((req, res) => {
   const user = req.user.email;
   db.supplier_map_login
     .findAll({
+      // finds porders based on user login email
       where: { login_email: user },
       include: [
         {
@@ -58,6 +59,7 @@ router.route('/account', isAuthenticated).get((req, res) => {
       ]
     })
     .then((results) => {
+      // creates new array from results to be able to fulter through information and include supplier in new arr
       const dataArr = results[0].orders.map((obj) => {
         return {
           ...obj.dataValues,
@@ -75,6 +77,7 @@ router.route('/account', isAuthenticated).get((req, res) => {
 // route for updating a record
 router.route('/account/:id', isAuthenticated).put((req, res) => {
   db.order
+    // updates user supplier based on id
     .update(req.body, { where: { id: req.params.id } })
     .then((updated) => {
       res.json(updated);
@@ -117,6 +120,7 @@ router.route('/admin', isAuthenticated).get((req, res) => {
 });
 module.exports = router;
 
+// this routes allows user to update supplier map login
 router.route('/admin/:id', isAuthenticated).put((req, res) => {
   db.supplier_map_login
     .update(req.body, { where: { id: req.params.id } })
